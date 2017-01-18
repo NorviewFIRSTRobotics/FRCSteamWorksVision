@@ -37,5 +37,5 @@ class Angles:
 
     def dist(self,v):
         v_rad = math.atan((v-self.center_y)/self.focal_length)
-        dist = (self.target_height-self.camera_height)/(math.tan(v_rad-self.camera_y_angle_offset))
+        dist = (self.target_height-self.camera_height)/(math.tan(v_rad-self.camera_y_angle_offset+.0000000000001)) # extra added value prevents divide by zero
         return dist;
