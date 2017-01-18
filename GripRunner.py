@@ -7,13 +7,16 @@ Users need to:
 
 1. Import the generated GRIP pipeline, which should be generated in the same directory as this file.
 2. Set the network table server IP. This is usually the robots address (roborio-TEAM-frc.local) or localhost
-3. Handle putting the generated code into NetworkTables
+3. Configure camera setup settings.
+4. Handle putting the generated code into NetworkTables
 """
 
 import cv2
 from networktables import NetworkTable
-from grip import GripPipeline  # TODO change the default module and class, if needed
+from grip import GripPipeline  # TODO set module (filename) and class, if needed.
+# Ex. from pipleline (for pipeline.py) import VisionTask (for class VisionTask)
 from conversion import Angles
+from subprocess import call
 
 def extra_processing(pipeline: GripPipeline):
     """
@@ -63,8 +66,12 @@ def extra_processing(pipeline: GripPipeline):
 def main():
     NetworkTable.setTeam(5587)  # TODO set your team number
     NetworkTable.setClientMode()
-    NetworkTable.setIPAddress('10.55.87.20') # TODO switch to RIO IP
+    NetworkTable.setIPAddress('10.55.87.20') # TODO switch to RIO IP, or IP of laptop running OutlineViewer for setup
     NetworkTable.initialize()
+
+    #TODO find what v4l2-ctl settings you need. Pass each commandline option through this array. REQUIRES v4l2-utils to be installed.
+    call(["v4l2-ctl","--set-ctrl=exposure_auto=1","--set-ctrl=exposure_absolute=9","--set-ctrl=white_balance_temperature_auto=0"],shell=False)
+
     cap = cv2.VideoCapture(0)
     pipeline = GripPipeline()
     while True:
