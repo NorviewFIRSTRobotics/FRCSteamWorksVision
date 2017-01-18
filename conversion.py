@@ -32,7 +32,7 @@ class Angles:
         return u_deg
 
     def y_angle(self,v):
-        v_deg = math.degrees(math.atan((v-self.center_y)/self.focal_length))
+        v_deg = -1*math.degrees(math.atan((v-self.center_y)/self.focal_length))
         return v_deg
 
     def dist(self,v):
