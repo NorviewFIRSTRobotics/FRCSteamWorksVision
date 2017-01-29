@@ -20,7 +20,7 @@ class GripPipeline:
         self.get_mat_info_high_value = None
 
         self.__hsv_threshold_hue = [50.89208633093524, 90.48726655348048]
-        self.__hsv_threshold_saturation = [0.0, 255.0]
+        self.__hsv_threshold_saturation = [20.0, 255.0]
         self.__hsv_threshold_value = [30.93165467625899, 255.0]
 
         self.hsv_threshold_output = None

@@ -29,13 +29,16 @@ class Angles:
 
     def x_angle(self,u):
         u_deg = math.degrees(math.atan((u-self.center_x)/self.focal_length))
+        u_deg = int(u_deg*1000)/1000.0
         return u_deg
 
     def y_angle(self,v):
         v_deg = -1*math.degrees(math.atan((v-self.center_y)/self.focal_length))
+        v_deg = int(v_deg*1000)/1000.0
         return v_deg
 
     def dist(self,v):
         v_rad = math.atan((v-self.center_y)/self.focal_length)
         dist = (self.target_height-self.camera_height)/(math.tan(v_rad-self.camera_y_angle_offset+.0000000000001)) # extra added value prevents divide by zero
+        dist = int(dist*1000)/1000.0
         return dist;

@@ -1,10 +1,10 @@
 [Unit]
-Description=GripRunner
+Description=Grip Runner
 After=multi-user.target
 
 [Service]
 Type=idle
-ExecStart=/usr/bin/python3 /home/pi/GripRunner.py
+ExecStart=/usr/bin/python /home/pi/PiVision/GripRunner.py
 
 [Install]
 WantedBy=multi-user.target

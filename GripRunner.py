@@ -53,16 +53,16 @@ def extra_processing(pipeline: GripPipeline):
         dists.append(converter.dist(y + h / 2))
 
 
-        extra = NetworkTable.getTable('/GRIP/preprocessed')
-        extra.putNumberArray('x', center_x_positions)
-        extra.putNumberArray('y', center_y_positions)
-        extra.putNumberArray('width', widths)
-        extra.putNumberArray('height', heights)
+    extra = NetworkTable.getTable('/GRIP/preprocessed')
+    extra.putNumberArray('x', center_x_positions)
+    extra.putNumberArray('y', center_y_positions)
+    extra.putNumberArray('width', widths)
+    extra.putNumberArray('height', heights)
 
-        usable = NetworkTable.getTable('/GRIP/postprocessed')
-        usable.putNumberArray('x angles', x_angles)
-        usable.putNumberArray('y angles', y_angles)
-        usable.putNumberArray('distances', dists)
+    usable = NetworkTable.getTable('/GRIP/postprocessed')
+    usable.putNumberArray('x angles', x_angles)
+    usable.putNumberArray('y angles', y_angles)
+    usable.putNumberArray('distances', dists)
 
 
 def main():
