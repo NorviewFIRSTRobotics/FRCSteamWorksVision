@@ -35,7 +35,7 @@ class GripPipeline:
         self.cv_erode_output = None
 
         self.__find_contours_input = self.cv_erode_output
-        self.__find_contours_external_only = False
+        self.__find_contours_external_only = True
 
         self.find_contours_output = None
 

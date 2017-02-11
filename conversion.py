@@ -14,9 +14,9 @@ class Angles:
 
         self.__find_FOVs()
 
-        self.target_height = 1.1176 # in meters
-        self.camera_height = 0.2032 # in meters
-        self.camera_y_angle_offset = 0 # in radians
+        self.target_height = 2.0955 # in meters
+        self.camera_height = 0.50 # in meters
+        self.camera_y_angle_offset = .61 # in radians
     #Find FOV angles
     def __find_FOVs(self):
         self.center_x = self.x_aspect/2 -.5

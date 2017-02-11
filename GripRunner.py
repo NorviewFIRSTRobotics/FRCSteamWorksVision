@@ -31,6 +31,8 @@ def extra_processing(pipeline: GripPipeline):
 
     (imgx,imgy) = pipeline.get_mat_info_size
 
+    contours = pipeline.filter_contours_output
+
     center_x_positions = []
     center_y_positions = []
     widths = []
@@ -38,20 +40,25 @@ def extra_processing(pipeline: GripPipeline):
 
     x_angles = []
     y_angles = []
-    dists = []
+    dist = 0.0
 
+    #sorts contours
+    print(len(pipeline.filter_contours_output))
+    if(len(pipeline.filter_contours_output) > 1):
+        boundingBoxes = [cv2.boundingRect(c) for c in pipeline.filter_contours_output]
+        (contours, boundingBoxes) = zip(*sorted(zip(contours, boundingBoxes),
+            key=lambda b:b[1][1], reverse=False))
+        dummy, distY, dummy2, distH = cv2.boundingRect(contours[0])
+        dist = converter.dist(distY + distH / 2)
 
-    for contour in pipeline.filter_contours_output:
+    for contour in contours:
         x, y, w, h = cv2.boundingRect(contour)
         center_x_positions.append(x + w / 2)  # X and Y are coordinates of the top-left corner of the bounding box
         center_y_positions.append(y + h / 2)
         widths.append(w)
         heights.append(y)
-
         x_angles.append(converter.x_angle(x + w / 2))
         y_angles.append(converter.y_angle(y + h / 2))
-        dists.append(converter.dist(y + h / 2))
-
 
     extra = NetworkTable.getTable('/GRIP/preprocessed')
     extra.putNumberArray('x', center_x_positions)
@@ -62,13 +69,13 @@ def extra_processing(pipeline: GripPipeline):
     usable = NetworkTable.getTable('/GRIP/postprocessed')
     usable.putNumberArray('x angles', x_angles)
     usable.putNumberArray('y angles', y_angles)
-    usable.putNumberArray('distances', dists)
+    usable.putNumber('distance', dist)
 
 
 def main():
     NetworkTable.setTeam(5587)  # TODO set your team number
     NetworkTable.setClientMode()
-    NetworkTable.setIPAddress('10.55.87.20') # TODO switch to RIO IP, or IP of laptop running OutlineViewer for setup
+    NetworkTable.setIPAddress('10.55.87.2') # TODO switch to RIO IP, or IP of laptop running OutlineViewer for setup
     NetworkTable.initialize()
 
     #TODO find what v4l2-ctl settings you need. Pass each commandline option through this array. REQUIRES v4l2-utils to be installed.
