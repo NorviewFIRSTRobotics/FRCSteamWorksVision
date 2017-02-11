@@ -43,7 +43,6 @@ def extra_processing(pipeline: GripPipeline):
     dist = 0.0
 
     #sorts contours
-    print(len(pipeline.filter_contours_output))
     if(len(pipeline.filter_contours_output) > 1):
         boundingBoxes = [cv2.boundingRect(c) for c in pipeline.filter_contours_output]
         (contours, boundingBoxes) = zip(*sorted(zip(contours, boundingBoxes),
